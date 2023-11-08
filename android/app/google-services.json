@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "597958571110",
+    "project_id": "aklk-3ndna-e9035",
+    "storage_bucket": "aklk-3ndna-e9035.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:597958571110:android:658c96be0249a40fe5e9a7",
+        "android_client_info": {
+          "package_name": "com.example.aklk_3ndna"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAf_xSdHE97UC_ZveNuBli0DW4wFAtjlfM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
