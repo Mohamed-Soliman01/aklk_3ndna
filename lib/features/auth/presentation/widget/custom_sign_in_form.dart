@@ -1,8 +1,9 @@
-import 'package:aklk_3ndna/core/utils/app_colors.dart';
+import 'package:aklk_3ndna/core/functions/show_toast.dart';
 import 'package:aklk_3ndna/core/utils/app_controller.dart';
 import 'package:aklk_3ndna/core/widgets/custom_button.dart';
 import 'package:aklk_3ndna/features/auth/cubit/auth_cubit.dart';
 import 'package:aklk_3ndna/features/auth/cubit/auth_state.dart';
+import 'package:aklk_3ndna/features/auth/presentation/widget/custom_circular_indicator.dart';
 import 'package:aklk_3ndna/features/auth/presentation/widget/custon_text_form_filed.dart';
 import 'package:aklk_3ndna/features/auth/presentation/widget/forgot_password_text_widget.dart';
 import 'package:aklk_3ndna/features/home/presentation/view/home.dart';
@@ -18,19 +19,21 @@ class CustomSignInForm extends StatefulWidget {
 }
 
 class _CustomSignInFormState extends State<CustomSignInForm> {
-  final GlobalKey<FormState> _globalKey = GlobalKey();
+  final GlobalKey<FormState> _signinFormKey = GlobalKey();
 
   @override
   Widget build(BuildContext context) {
     double height = MediaQuery.of(context).size.height;
     return BlocConsumer<AuthCubit, AuthState>(
       listener: (context, state) {
-        if (state is LoginInUserSuccessState) {
+        if (state is SigninSuccessState) {
           Navigator.pushReplacementNamed(context, HomeView.id);
+        } else if (state is SigninFailureState) {
+          showToast(state.errMessage);
         }
       },
       builder: (context, state) => Form(
-        key: _globalKey,
+        key: _signinFormKey,
         child: Column(
           children: [
             CustomTextFormField(
@@ -54,15 +57,16 @@ class _CustomSignInFormState extends State<CustomSignInForm> {
             ),
             SizedBox(height: height * 0.01),
             const ForgotPasswordTextWidget(),
-            SizedBox(height: height * 0.3),
+            SizedBox(height: height * 0.269),
             Builder(builder: (context) {
-              if (state is! LoginInUserLoadingState)
+              if (state is! SigninLoadingState)
                 return CustomButton(
                     text: S.of(context).signIn,
-                    onPressed: () {
+                    onPressed: () async {
                       {
-                        if (_globalKey.currentState!.validate()) {
-                          AuthCubit.get(context).userLogin(
+                        if (_signinFormKey.currentState!.validate()) {
+                          await AuthCubit.get(context)
+                              .sigInWithEmailAndPassword(
                             email: emailController.text,
                             password: passwordController.text,
                           );
@@ -70,11 +74,7 @@ class _CustomSignInFormState extends State<CustomSignInForm> {
                       }
                     });
               else {
-                return Center(
-                  child: CircularProgressIndicator(
-                    color: kPrimaryColor,
-                  ),
-                );
+                return const CustomCircularIndicator();
               }
             }),
           ],

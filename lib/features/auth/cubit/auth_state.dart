@@ -2,6 +2,7 @@ class AuthState {}
 
 final class AuthInitial extends AuthState {}
 
+//! SignUp States
 final class SignupLoadingState extends AuthState {}
 
 final class SignupSuccessState extends AuthState {}
@@ -12,31 +13,30 @@ final class SignupFailureState extends AuthState {
   SignupFailureState({required this.errMessage});
 }
 
-//!
+//! SignIn States
+final class SigninLoadingState extends AuthState {}
 
-class CreateUserLoadingState extends AuthState {}
+final class SigninSuccessState extends AuthState {}
 
-class CreateUserSuccessState extends AuthState {}
+final class SigninFailureState extends AuthState {
+  final String errMessage;
 
-class CreateUserErrorState extends AuthState {
-  late final String error;
-  CreateUserErrorState(this.error);
+  SigninFailureState({required this.errMessage});
 }
 
-////////////////////////////////////////////////////////
-// Login
-class LoginInUserLoadingState extends AuthState {}
+//! Reset Password State
+final class ResetPasswordLoadingState extends AuthState {}
 
-class LoginInUserSuccessState extends AuthState {
-  late final String uid;
-  LoginInUserSuccessState(this.uid);
+final class ResetPasswordSuccessState extends AuthState {}
+
+final class ResetPasswordFailureState extends AuthState {
+  final String errMessage;
+
+  ResetPasswordFailureState({required this.errMessage});
 }
 
-class LoginInUserErrorState extends AuthState {
-  late final String error;
-  LoginInUserErrorState(this.error);
-}
-
+//! Terms And Condition state
 final class TermsAndConditionUpdateState extends AuthState {}
 
+//! Obscure Password state
 final class ObscurePasswordTextUpdateState extends AuthState {}

@@ -1,4 +1,3 @@
-import 'package:aklk_3ndna/core/services/service_locator.dart';
 import 'package:aklk_3ndna/features/auth/cubit/auth_cubit.dart';
 import 'package:aklk_3ndna/features/auth/presentation/views/sign_up_view.dart';
 import 'package:aklk_3ndna/features/auth/presentation/widget/custom_sign_in_form.dart';
@@ -36,6 +35,7 @@ class SignInView extends StatelessWidget {
                     Navigator.pushReplacementNamed(context, SignUpView.id);
                   },
                 ),
+                SizedBox(height: height * 0.02),
               ],
             ),
           ),

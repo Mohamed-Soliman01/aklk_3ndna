@@ -1,11 +1,11 @@
 import 'package:aklk_3ndna/core/functions/get_flag.dart';
 import 'package:aklk_3ndna/core/functions/is_arabic.dart';
 import 'package:aklk_3ndna/core/functions/show_toast.dart';
-import 'package:aklk_3ndna/core/utils/app_colors.dart';
 import 'package:aklk_3ndna/core/utils/app_controller.dart';
 import 'package:aklk_3ndna/core/widgets/custom_button.dart';
 import 'package:aklk_3ndna/features/auth/cubit/auth_cubit.dart';
 import 'package:aklk_3ndna/features/auth/cubit/auth_state.dart';
+import 'package:aklk_3ndna/features/auth/presentation/widget/custom_circular_indicator.dart';
 import 'package:aklk_3ndna/features/auth/presentation/widget/custon_text_form_filed.dart';
 import 'package:aklk_3ndna/features/auth/presentation/widget/terms_and_condition_widget.dart';
 import 'package:aklk_3ndna/features/home/presentation/view/home.dart';
@@ -121,11 +121,7 @@ class _CustomSignUpFormState extends State<CustomSignUpForm> {
                     },
                   );
                 else {
-                  return Center(
-                    child: CircularProgressIndicator(
-                      color: kPrimaryColor,
-                    ),
-                  );
+                  return const CustomCircularIndicator();
                 }
               },
             ),

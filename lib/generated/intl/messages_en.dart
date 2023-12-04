@@ -29,6 +29,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "TermsAndConditions": MessageLookupByLibrary.simpleMessage(
             "I agree to your terms and conditions"),
         "email": MessageLookupByLibrary.simpleMessage("Email"),
+        "forgotPassword":
+            MessageLookupByLibrary.simpleMessage("Forgot Password ?"),
         "getStarted": MessageLookupByLibrary.simpleMessage("GET STARTED"),
         "isEmpty": MessageLookupByLibrary.simpleMessage("is empty!"),
         "name": MessageLookupByLibrary.simpleMessage("Name"),
@@ -39,7 +41,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "signUp": MessageLookupByLibrary.simpleMessage("Sign Up"),
         "skip": MessageLookupByLibrary.simpleMessage("SKIP"),
         "title": MessageLookupByLibrary.simpleMessage("Aklk 3ndna"),
-        "welcome": MessageLookupByLibrary.simpleMessage("Welcome"),
+        "welcome": MessageLookupByLibrary.simpleMessage("Welcome "),
         "welcomeBody": MessageLookupByLibrary.simpleMessage(
             "It’s a pleasure to meet you. We are excited that you’re here so let’s get started!")
       };

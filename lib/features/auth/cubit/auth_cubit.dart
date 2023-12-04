@@ -1,14 +1,13 @@
-import 'package:aklk_3ndna/core/models/user_model.dart';
 import 'package:aklk_3ndna/features/auth/cubit/auth_state.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 class AuthCubit extends Cubit<AuthState> {
   AuthCubit() : super(AuthInitial());
-
   static AuthCubit get(context) => BlocProvider.of(context);
+
+//! SignUp With Email And Password
   Future<void> signUpWithEmailAndPassword({
     required String email,
     required String password,
@@ -21,8 +20,8 @@ class AuthCubit extends Cubit<AuthState> {
         email: email,
         password: password,
       );
-      // await addUserProfile();
-      // await verifyEmail();
+      await addUserProfile(name: name, email: email, phone: phone);
+      await verifyEmail();
       emit(SignupSuccessState());
     } on FirebaseAuthException catch (e) {
       _signUpHandleException(e);
@@ -31,98 +30,86 @@ class AuthCubit extends Cubit<AuthState> {
     }
   }
 
-  void _signUpHandleException(FirebaseAuthException e) {
-    if (e.code == 'weak-password') {
+//! user Create
+  Future<void> addUserProfile({
+    required String email,
+    required String name,
+    required String phone,
+  }) async {
+    CollectionReference users = FirebaseFirestore.instance.collection("users");
+    await users.add({
+      "email": email,
+      "name": name,
+      "phone": phone,
+      "image": 'assets/images/get_started/user.jpg'
+    });
+  }
+
+//! verify Email
+  Future<void> verifyEmail() async {
+    await FirebaseAuth.instance.currentUser!.sendEmailVerification();
+  }
+
+//! SignUp Handle Exception
+  void _signUpHandleException(FirebaseAuthException erorr) {
+    if (erorr.code == 'weak-password') {
       emit(SignupFailureState(errMessage: 'The password provided is too weak'));
-    } else if (e.code == 'email-already-in-use') {
+    } else if (erorr.code == 'email-already-in-use') {
       emit(SignupFailureState(
           errMessage: 'The account already exists for that email.'));
-    } else if (e.code == 'invalid-email') {
+    } else if (erorr.code == 'invalid-email') {
       emit(SignupFailureState(errMessage: 'The email is invalid.'));
     } else {
-      emit(SignupFailureState(errMessage: e.code));
+      emit(SignupFailureState(errMessage: erorr.code));
     }
   }
 
-  // Register User
-
-  // void userRegister({
-  //   required String email,
-  //   required String password,
-  //   required String name,
-  //   required String phone,
-  // }) {
-  //   FirebaseAuth.instance
-  //       .createUserWithEmailAndPassword(
-  //     email: email,
-  //     password: password,
-  //   )
-  //       .then((value) {
-  //     //emit(RegisterUserLoadingState());
-  //     print(value.user!.email);
-  //     print(value.user!.uid);
-  //     userCreate(
-  //       email: email,
-  //       name: name,
-  //       phone: phone,
-  //       uid: value.user!.uid,
-  //     );
-  //   }).catchError((error) {
-  //     _signUpHandleException(error);
-  //   });
-  // }
-
-  void userCreate({
-    String? email,
-    required String name,
-    required String phone,
-    String? uid,
-  }) {
-    UserModel model = UserModel(
-      name: name,
-      email: email,
-      phone: phone,
-      uid: uid,
-      image:
-          'https://image.freepik.com/free-photo/waist-up-portrait-handsome-serious-unshaven-male-keeps-hands-together-dressed-dark-blue-shirt-has-talk-with-interlocutor-stands-against-white-wall-self-confident-man-freelancer_273609-16320.jpg',
-    );
-    FirebaseFirestore.instance
-        .collection('users')
-        .doc(uid)
-        .set(model.toMap())
-        .then((value) {
-      emit(CreateUserSuccessState());
-    }).catchError((error) {
-      emit(CreateUserErrorState(error));
-    });
-  }
-
-// Login User
-
-  void userLogin({
+//! Login User => SigIn With Email And Password
+  Future<void> sigInWithEmailAndPassword({
     required String email,
     required String password,
   }) async {
-    emit(LoginInUserLoadingState());
-    await FirebaseAuth.instance
-        .signInWithEmailAndPassword(
-      email: email,
-      password: password,
-    )
-        .then((value) {
-      print('Email => ${value.user!.email}');
-      print('Id => ${value.user!.uid}');
-
-      emit(LoginInUserSuccessState(value.user!.uid));
-    }).catchError((onError) {
-      emit(LoginInUserErrorState(onError.toString()));
-    });
+    try {
+      emit(SigninLoadingState());
+      await FirebaseAuth.instance.signInWithEmailAndPassword(
+        email: email,
+        password: password,
+      );
+      emit(SigninSuccessState());
+    } on FirebaseAuthException catch (erorr) {
+      _signInHandleException(erorr);
+    } catch (e) {
+      emit(
+        SigninFailureState(errMessage: e.toString()),
+      );
+    }
   }
 
-  // obscure Password Text
-  bool? obscurePasswordTextValue = true;
-  // GlobalKey<FormState> signupFormKey = GlobalKey();
+//! SignIn Handle Exception
+  void _signInHandleException(FirebaseAuthException erorr) {
+    if (erorr.code == 'user-not-found') {
+      emit(SigninFailureState(errMessage: 'No user found for that email.'));
+    } else if (erorr.code == 'wrong-password') {
+      emit(SigninFailureState(
+          errMessage: 'Wrong password provided for that user.'));
+    } else {
+      emit(SigninFailureState(errMessage: 'Check your Email and password!'));
+    }
+  }
 
+//! Reset Password With Link
+  Future<void> resetPasswordWithLink({required String email}) async {
+    try {
+      emit(ResetPasswordLoadingState());
+      await FirebaseAuth.instance.sendPasswordResetEmail(email: email);
+      emit(ResetPasswordSuccessState());
+    } catch (erorr) {
+      emit(ResetPasswordFailureState(errMessage: erorr.toString()));
+    }
+  }
+
+//! obscure Password Text
+  bool obscurePasswordTextValue = true;
   void obscurePasswordText() {
     if (obscurePasswordTextValue == true) {
       obscurePasswordTextValue = false;
@@ -132,8 +119,8 @@ class AuthCubit extends Cubit<AuthState> {
     emit(ObscurePasswordTextUpdateState());
   }
 
+//! Update Terms And Condition CheckBox
   bool? termsAndConditionCheckBoxValue = false;
-
   void updateTermsAndConditionCheckBox({required newValue}) {
     termsAndConditionCheckBoxValue = newValue;
     emit(TermsAndConditionUpdateState());

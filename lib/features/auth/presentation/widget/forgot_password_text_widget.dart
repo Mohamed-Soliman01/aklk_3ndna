@@ -1,5 +1,7 @@
+import 'package:aklk_3ndna/core/functions/is_arabic.dart';
 import 'package:aklk_3ndna/core/utils/app_colors.dart';
 import 'package:aklk_3ndna/features/auth/presentation/views/forgot_password_view.dart';
+import 'package:aklk_3ndna/generated/l10n.dart';
 import 'package:flutter/material.dart';
 
 class ForgotPasswordTextWidget extends StatelessWidget {
@@ -12,9 +14,9 @@ class ForgotPasswordTextWidget extends StatelessWidget {
         Navigator.pushReplacementNamed(context, ForgotPasswordView.id);
       },
       child: Align(
-        alignment: Alignment.centerRight,
+        alignment: isArabic() ? Alignment.centerLeft : Alignment.centerRight,
         child: Text(
-          "Forgot Password ?",
+          S.of(context).forgotPassword,
           style: TextStyle(
             color: kPrimaryColor,
           ),

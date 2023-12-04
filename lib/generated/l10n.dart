@@ -90,10 +90,10 @@ class S {
     );
   }
 
-  /// `Welcome`
+  /// `Welcome `
   String get welcome {
     return Intl.message(
-      'Welcome',
+      'Welcome ',
       name: 'welcome',
       desc: '',
       args: [],
@@ -205,6 +205,16 @@ class S {
     return Intl.message(
       'is empty!',
       name: 'isEmpty',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Forgot Password ?`
+  String get forgotPassword {
+    return Intl.message(
+      'Forgot Password ?',
+      name: 'forgotPassword',
       desc: '',
       args: [],
     );

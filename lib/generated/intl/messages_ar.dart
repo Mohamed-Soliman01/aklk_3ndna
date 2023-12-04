@@ -29,6 +29,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "TermsAndConditions": MessageLookupByLibrary.simpleMessage(
             "أوافق على الشروط والأحكام الخاصة بك"),
         "email": MessageLookupByLibrary.simpleMessage("بريد إلكتروني"),
+        "forgotPassword":
+            MessageLookupByLibrary.simpleMessage("هل نسيت كلمة السر ؟"),
         "getStarted": MessageLookupByLibrary.simpleMessage("البدء"),
         "isEmpty": MessageLookupByLibrary.simpleMessage("فارغ!"),
         "name": MessageLookupByLibrary.simpleMessage("الاسم"),
@@ -39,7 +41,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "signUp": MessageLookupByLibrary.simpleMessage("اشتراك"),
         "skip": MessageLookupByLibrary.simpleMessage("تخطي"),
         "title": MessageLookupByLibrary.simpleMessage("أكلك عندنا"),
-        "welcome": MessageLookupByLibrary.simpleMessage("مرحباً"),
+        "welcome": MessageLookupByLibrary.simpleMessage(" مرحباً"),
         "welcomeBody": MessageLookupByLibrary.simpleMessage(
             "من دواعي سروري مقابلتك. نحن متحمسون لوجودك هنا، فلنبدأ!")
       };
