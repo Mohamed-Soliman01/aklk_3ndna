@@ -1,8 +1,10 @@
+import 'package:aklk_3ndna/core/utils/app_colors.dart';
 import 'package:aklk_3ndna/core/utils/app_controller.dart';
 import 'package:aklk_3ndna/core/widgets/custom_button.dart';
 import 'package:aklk_3ndna/features/auth/cubit/auth_cubit.dart';
 import 'package:aklk_3ndna/features/auth/cubit/auth_state.dart';
 import 'package:aklk_3ndna/features/auth/presentation/widget/custon_text_form_filed.dart';
+import 'package:aklk_3ndna/features/auth/presentation/widget/forgot_password_text_widget.dart';
 import 'package:aklk_3ndna/features/home/presentation/view/home.dart';
 import 'package:aklk_3ndna/generated/l10n.dart';
 import 'package:flutter/material.dart';
@@ -21,7 +23,7 @@ class _CustomSignInFormState extends State<CustomSignInForm> {
   @override
   Widget build(BuildContext context) {
     double height = MediaQuery.of(context).size.height;
-    return BlocConsumer<AuthCubit, AuthStates>(
+    return BlocConsumer<AuthCubit, AuthState>(
       listener: (context, state) {
         if (state is LoginInUserSuccessState) {
           Navigator.pushReplacementNamed(context, HomeView.id);
@@ -41,8 +43,8 @@ class _CustomSignInFormState extends State<CustomSignInForm> {
               suffixIcon: IconButton(
                 icon: Icon(
                   AuthCubit.get(context).obscurePasswordTextValue == true
-                      ? Icons.visibility_outlined
-                      : Icons.visibility_off_outlined,
+                      ? Icons.visibility_off_outlined
+                      : Icons.visibility_outlined,
                 ),
                 onPressed: () {
                   AuthCubit.get(context).obscurePasswordText();
@@ -50,6 +52,8 @@ class _CustomSignInFormState extends State<CustomSignInForm> {
               ),
               obscureText: AuthCubit.get(context).obscurePasswordTextValue,
             ),
+            SizedBox(height: height * 0.01),
+            const ForgotPasswordTextWidget(),
             SizedBox(height: height * 0.3),
             Builder(builder: (context) {
               if (state is! LoginInUserLoadingState)
@@ -66,7 +70,11 @@ class _CustomSignInFormState extends State<CustomSignInForm> {
                       }
                     });
               else {
-                return Center(child: CircularProgressIndicator());
+                return Center(
+                  child: CircularProgressIndicator(
+                    color: kPrimaryColor,
+                  ),
+                );
               }
             }),
           ],

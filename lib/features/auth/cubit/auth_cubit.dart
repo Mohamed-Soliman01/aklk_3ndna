@@ -5,37 +5,72 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
-class AuthCubit extends Cubit<AuthStates> {
-  AuthCubit() : super(RegisterInitial());
+class AuthCubit extends Cubit<AuthState> {
+  AuthCubit() : super(AuthInitial());
+
   static AuthCubit get(context) => BlocProvider.of(context);
-
-  // Register User
-
-  void userRegister({
+  Future<void> signUpWithEmailAndPassword({
     required String email,
     required String password,
     required String name,
     required String phone,
-  }) {
-    FirebaseAuth.instance
-        .createUserWithEmailAndPassword(
-      email: email,
-      password: password,
-    )
-        .then((value) {
-      emit(RegisterUserLoadingState());
-      print(value.user!.email);
-      print(value.user!.uid);
-      userCreate(
+  }) async {
+    try {
+      emit(SignupLoadingState());
+      await FirebaseAuth.instance.createUserWithEmailAndPassword(
         email: email,
-        name: name,
-        phone: phone,
-        uid: value.user!.uid,
+        password: password,
       );
-    }).catchError((error) {
-      emit(RegisterUserErrorState(error.toString()));
-    });
+      // await addUserProfile();
+      // await verifyEmail();
+      emit(SignupSuccessState());
+    } on FirebaseAuthException catch (e) {
+      _signUpHandleException(e);
+    } catch (e) {
+      emit(SignupFailureState(errMessage: e.toString()));
+    }
   }
+
+  void _signUpHandleException(FirebaseAuthException e) {
+    if (e.code == 'weak-password') {
+      emit(SignupFailureState(errMessage: 'The password provided is too weak'));
+    } else if (e.code == 'email-already-in-use') {
+      emit(SignupFailureState(
+          errMessage: 'The account already exists for that email.'));
+    } else if (e.code == 'invalid-email') {
+      emit(SignupFailureState(errMessage: 'The email is invalid.'));
+    } else {
+      emit(SignupFailureState(errMessage: e.code));
+    }
+  }
+
+  // Register User
+
+  // void userRegister({
+  //   required String email,
+  //   required String password,
+  //   required String name,
+  //   required String phone,
+  // }) {
+  //   FirebaseAuth.instance
+  //       .createUserWithEmailAndPassword(
+  //     email: email,
+  //     password: password,
+  //   )
+  //       .then((value) {
+  //     //emit(RegisterUserLoadingState());
+  //     print(value.user!.email);
+  //     print(value.user!.uid);
+  //     userCreate(
+  //       email: email,
+  //       name: name,
+  //       phone: phone,
+  //       uid: value.user!.uid,
+  //     );
+  //   }).catchError((error) {
+  //     _signUpHandleException(error);
+  //   });
+  // }
 
   void userCreate({
     String? email,
@@ -80,24 +115,13 @@ class AuthCubit extends Cubit<AuthStates> {
 
       emit(LoginInUserSuccessState(value.user!.uid));
     }).catchError((onError) {
-      print(onError.toString());
       emit(LoginInUserErrorState(onError.toString()));
     });
   }
 
-  // IconData suffix = Icons.visibility_outlined;
-  // bool showPassword = true;
-  // void changePasswordVisibility() {
-  //   showPassword = !showPassword;
-  //   suffix = showPassword
-  //       ? Icons.visibility_outlined
-  //       : Icons.visibility_off_outlined;
-  //   emit(ChangePasswordVisibility());
-  // }
-
   // obscure Password Text
   bool? obscurePasswordTextValue = true;
-  GlobalKey<FormState> signupFormKey = GlobalKey();
+  // GlobalKey<FormState> signupFormKey = GlobalKey();
 
   void obscurePasswordText() {
     if (obscurePasswordTextValue == true) {
@@ -106,5 +130,12 @@ class AuthCubit extends Cubit<AuthStates> {
       obscurePasswordTextValue = true;
     }
     emit(ObscurePasswordTextUpdateState());
+  }
+
+  bool? termsAndConditionCheckBoxValue = false;
+
+  void updateTermsAndConditionCheckBox({required newValue}) {
+    termsAndConditionCheckBoxValue = newValue;
+    emit(TermsAndConditionUpdateState());
   }
 }

@@ -15,7 +15,7 @@ class SplashView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AnimatedSplashScreen(
-      backgroundColor: const Color(0xffFFFBED),
+      backgroundColor: const Color(0xfffffcec),
       splash: Image.asset(
         isArabic()
             ? Assets.imagesSplashAklk3ndnaAr

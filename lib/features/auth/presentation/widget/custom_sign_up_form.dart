@@ -1,4 +1,7 @@
+import 'package:aklk_3ndna/core/functions/get_flag.dart';
 import 'package:aklk_3ndna/core/functions/is_arabic.dart';
+import 'package:aklk_3ndna/core/functions/show_toast.dart';
+import 'package:aklk_3ndna/core/utils/app_colors.dart';
 import 'package:aklk_3ndna/core/utils/app_controller.dart';
 import 'package:aklk_3ndna/core/widgets/custom_button.dart';
 import 'package:aklk_3ndna/features/auth/cubit/auth_cubit.dart';
@@ -18,19 +21,24 @@ class CustomSignUpForm extends StatefulWidget {
 }
 
 class _CustomSignUpFormState extends State<CustomSignUpForm> {
-  final GlobalKey<FormState> _globalKey = GlobalKey();
+  final GlobalKey<FormState> _signupFormKey = GlobalKey();
 
   @override
   Widget build(BuildContext context) {
     double height = MediaQuery.of(context).size.height;
 
-    return BlocConsumer<AuthCubit, AuthStates>(
+    return BlocConsumer<AuthCubit, AuthState>(
       listener: (context, state) {
-        if (state is CreateUserSuccessState)
+        if (state is SignupSuccessState) {
+          showToast("Successfully Create Account");
+
           Navigator.pushReplacementNamed(context, HomeView.id);
+        } else if (state is SignupFailureState) {
+          showToast(state.errMessage);
+        }
       },
       builder: (context, state) => Form(
-        key: _globalKey,
+        key: _signupFormKey,
         child: Column(
           children: [
             CustomTextFormField(
@@ -82,28 +90,42 @@ class _CustomSignUpFormState extends State<CustomSignUpForm> {
               ),
               obscureText: AuthCubit.get(context).obscurePasswordTextValue,
             ),
-            TermsAndConditionWidget(),
+            const TermsAndConditionWidget(),
             SizedBox(height: height * 0.08),
             Builder(
               builder: (context) {
-                if (state is! CreateUserLoadingState)
+                if (state is! SignupLoadingState)
                   return CustomButton(
+                    color:
+                        AuthCubit.get(context).termsAndConditionCheckBoxValue ==
+                                false
+                            ? Colors.grey
+                            : null,
                     text: S.of(context).signUp,
-                    onPressed: () {
+                    onPressed: () async {
                       {
-                        if (_globalKey.currentState!.validate()) {
-                          AuthCubit.get(context).userRegister(
-                            email: emailController.text,
-                            password: passwordController.text,
-                            name: nameController.text,
-                            phone: phoneController.text,
-                          );
+                        if (AuthCubit.get(context)
+                                .termsAndConditionCheckBoxValue ==
+                            true) {
+                          if (_signupFormKey.currentState!.validate()) {
+                            await AuthCubit.get(context)
+                                .signUpWithEmailAndPassword(
+                              email: emailController.text,
+                              password: passwordController.text,
+                              name: nameController.text,
+                              phone: phoneController.text,
+                            );
+                          }
                         }
                       }
                     },
                   );
                 else {
-                  return Center(child: CircularProgressIndicator());
+                  return Center(
+                    child: CircularProgressIndicator(
+                      color: kPrimaryColor,
+                    ),
+                  );
                 }
               },
             ),
@@ -112,12 +134,4 @@ class _CustomSignUpFormState extends State<CustomSignUpForm> {
       ),
     );
   }
-}
-
-String getFlag() {
-  String countryCode = 'eg';
-  String flag = countryCode.toUpperCase().replaceAllMapped(RegExp(r'[A-Z]'),
-      (match) => String.fromCharCode(match.group(0)!.codeUnitAt(0) + 127397));
-
-  return flag;
 }

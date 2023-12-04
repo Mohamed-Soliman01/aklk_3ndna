@@ -16,7 +16,7 @@ class SignInView extends StatelessWidget {
   Widget build(BuildContext context) {
     double height = MediaQuery.of(context).size.height;
     return BlocProvider(
-      create: (context) => getIt<AuthCubit>(),
+      create: (context) => AuthCubit(),
       child: SafeArea(
         child: Scaffold(
           body: Padding(
@@ -33,7 +33,7 @@ class SignInView extends StatelessWidget {
                   text1: S.of(context).DoYouHaveAnAccount,
                   text2: S.of(context).signUp,
                   onTap: () {
-                    Navigator.pushNamed(context, SignUpView.id);
+                    Navigator.pushReplacementNamed(context, SignUpView.id);
                   },
                 ),
               ],
@@ -44,4 +44,3 @@ class SignInView extends StatelessWidget {
     );
   }
 }
-

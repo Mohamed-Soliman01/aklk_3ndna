@@ -1,3 +1,4 @@
+import 'package:aklk_3ndna/features/auth/presentation/views/forgot_password_view.dart';
 import 'package:aklk_3ndna/features/auth/presentation/views/sign_in_view.dart';
 import 'package:aklk_3ndna/features/auth/presentation/views/sign_up_view.dart';
 import 'package:aklk_3ndna/features/home/presentation/view/home.dart';
@@ -12,4 +13,5 @@ var routes = {
   SignUpView.id: (context) => const SignUpView(),
   SignInView.id: (context) => const SignInView(),
   HomeView.id: (context) => const HomeView(),
+  ForgotPasswordView.id: (context) => const ForgotPasswordView(),
 };

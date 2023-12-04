@@ -1,15 +1,16 @@
 import 'package:aklk_3ndna/core/cubit/current_locale/current_locale_cubit.dart';
-import 'package:aklk_3ndna/core/cubit/current_locale/current_locale_state.dart';
 import 'package:aklk_3ndna/core/database/cache/cache_helper.dart';
-import 'package:aklk_3ndna/core/routes/routes.dart';
+import 'package:aklk_3ndna/core/functions/check_state_chenges.dart';
 import 'package:aklk_3ndna/core/services/service_locator.dart';
-import 'package:aklk_3ndna/features/splash/presentation/views/splash_view.dart';
-import 'package:aklk_3ndna/generated/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
+import 'package:aklk_3ndna/core/cubit/current_locale/current_locale_state.dart';
+import 'package:aklk_3ndna/core/routes/routes.dart';
+import 'package:aklk_3ndna/features/splash/presentation/views/splash_view.dart';
+import 'package:aklk_3ndna/generated/l10n.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -18,7 +19,7 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-
+  checkStateChanges();
   runApp(
     BlocProvider(
       create: (context) => CurrentLocaleCubit(),
