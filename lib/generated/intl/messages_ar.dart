@@ -40,6 +40,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "signIn": MessageLookupByLibrary.simpleMessage("تسجيل الدخول"),
         "signUp": MessageLookupByLibrary.simpleMessage("اشتراك"),
         "skip": MessageLookupByLibrary.simpleMessage("تخطي"),
+        "supTitleForgetPassword": MessageLookupByLibrary.simpleMessage(
+            "أدخل بريدك الإلكتروني المسجل أدناه لتلقي تعليمات إعادة تعيين كلمة المرور"),
         "title": MessageLookupByLibrary.simpleMessage("أكلك عندنا"),
         "welcome": MessageLookupByLibrary.simpleMessage(" مرحباً"),
         "welcomeBody": MessageLookupByLibrary.simpleMessage(

@@ -15,5 +15,6 @@
     "password":"كلمة المرور",
     "TermsAndConditions":"أوافق على الشروط والأحكام الخاصة بك",
     "isEmpty":"فارغ!",
-    "forgotPassword":"هل نسيت كلمة السر ؟"
+    "forgotPassword":"هل نسيت كلمة السر ؟",
+    "supTitleForgetPassword":"أدخل بريدك الإلكتروني المسجل أدناه لتلقي تعليمات إعادة تعيين كلمة المرور"
 }

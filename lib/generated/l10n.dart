@@ -219,6 +219,16 @@ class S {
       args: [],
     );
   }
+
+  /// `Enter your registered email below to receive password reset instruction`
+  String get supTitleForgetPassword {
+    return Intl.message(
+      'Enter your registered email below to receive password reset instruction',
+      name: 'supTitleForgetPassword',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

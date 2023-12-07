@@ -24,7 +24,7 @@ class SignInView extends StatelessWidget {
               physics: BouncingScrollPhysics(),
               children: [
                 SizedBox(height: height * 0.16),
-                WelcomeTextWidget(),
+                WelcomeTextWidget(text: S.of(context).welcome),
                 SizedBox(height: height * 0.08),
                 CustomSignInForm(),
                 SizedBox(height: height * 0.02),

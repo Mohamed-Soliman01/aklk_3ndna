@@ -15,5 +15,6 @@
     "password":"Password",
     "TermsAndConditions":"I agree to your terms and conditions",
     "isEmpty":"is empty!",
-    "forgotPassword":"Forgot Password ?"
+    "forgotPassword":"Forgot Password ?",
+    "supTitleForgetPassword":"Enter your registered email below to receive password reset instruction"
 }

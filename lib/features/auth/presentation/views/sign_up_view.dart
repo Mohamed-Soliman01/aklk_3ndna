@@ -24,7 +24,7 @@ class SignUpView extends StatelessWidget {
               physics: BouncingScrollPhysics(),
               children: [
                 SizedBox(height: height * 0.15),
-                WelcomeTextWidget(),
+                WelcomeTextWidget(text: S.of(context).welcome),
                 SizedBox(height: height * 0.06),
                 CustomSignUpForm(),
                 SizedBox(height: height * 0.02),

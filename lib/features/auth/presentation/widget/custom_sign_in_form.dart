@@ -8,6 +8,7 @@ import 'package:aklk_3ndna/features/auth/presentation/widget/custon_text_form_fi
 import 'package:aklk_3ndna/features/auth/presentation/widget/forgot_password_text_widget.dart';
 import 'package:aklk_3ndna/features/home/presentation/view/home.dart';
 import 'package:aklk_3ndna/generated/l10n.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -27,7 +28,9 @@ class _CustomSignInFormState extends State<CustomSignInForm> {
     return BlocConsumer<AuthCubit, AuthState>(
       listener: (context, state) {
         if (state is SigninSuccessState) {
-          Navigator.pushReplacementNamed(context, HomeView.id);
+          FirebaseAuth.instance.currentUser!.emailVerified
+              ? Navigator.pushReplacementNamed(context, HomeView.id)
+              : showToast("Please Verify Your Account");
         } else if (state is SigninFailureState) {
           showToast(state.errMessage);
         }

@@ -40,6 +40,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "signIn": MessageLookupByLibrary.simpleMessage("Sign In"),
         "signUp": MessageLookupByLibrary.simpleMessage("Sign Up"),
         "skip": MessageLookupByLibrary.simpleMessage("SKIP"),
+        "supTitleForgetPassword": MessageLookupByLibrary.simpleMessage(
+            "Enter your registered email below to receive password reset instruction"),
         "title": MessageLookupByLibrary.simpleMessage("Aklk 3ndna"),
         "welcome": MessageLookupByLibrary.simpleMessage("Welcome "),
         "welcomeBody": MessageLookupByLibrary.simpleMessage(

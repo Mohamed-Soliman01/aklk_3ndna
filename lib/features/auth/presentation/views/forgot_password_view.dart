@@ -1,22 +1,39 @@
+import 'package:aklk_3ndna/features/auth/cubit/auth_cubit.dart';
+import 'package:aklk_3ndna/features/auth/presentation/widget/custom_forgot_password_form.dart';
+import 'package:aklk_3ndna/features/auth/presentation/widget/forgot_password_image.dart';
+import 'package:aklk_3ndna/features/auth/presentation/widget/forgot_password_sub_title.dart';
+import 'package:aklk_3ndna/features/auth/presentation/widget/welcome_text_widget.dart';
+import 'package:aklk_3ndna/generated/l10n.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class ForgotPasswordView extends StatelessWidget {
   const ForgotPasswordView({super.key});
   static const id = 'forgotPassword';
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      body: CustomScrollView(
-        slivers: [
-          // SliverToBoxAdapter(child: SizedBox(height: 108)),
-          // SliverToBoxAdapter(
-          //     child: WelcomeTextWidget(text: AppStrings.forgotPassword)),
-          // SliverToBoxAdapter(child: SizedBox(height: 40)),
-          // SliverToBoxAdapter(child: ForgotPasswrodImage()),
-          // SliverToBoxAdapter(child: SizedBox(height: 24)),
-          // SliverToBoxAdapter(child: ForgotPasswordSubTitle()),
-          // SliverToBoxAdapter(child: CustomForgotPasswrodForm()),
-        ],
+    double height = MediaQuery.of(context).size.height;
+    return BlocProvider(
+      create: (context) => AuthCubit(),
+      child: SafeArea(
+        child: Scaffold(
+          backgroundColor: Colors.white,
+          body: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16),
+            child: ListView(
+              physics: BouncingScrollPhysics(),
+              children: [
+                SizedBox(height: height * 0.1),
+                WelcomeTextWidget(text: S.of(context).forgotPassword),
+                ForgotPasswrodImage(),
+                SizedBox(height: height * 0.03),
+                ForgotPasswordSubTitle(),
+                SizedBox(height: height * 0.03),
+                CustomForgotPasswrodForm(),
+              ],
+            ),
+          ),
+        ),
       ),
     );
   }

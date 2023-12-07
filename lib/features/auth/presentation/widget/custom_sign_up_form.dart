@@ -5,10 +5,10 @@ import 'package:aklk_3ndna/core/utils/app_controller.dart';
 import 'package:aklk_3ndna/core/widgets/custom_button.dart';
 import 'package:aklk_3ndna/features/auth/cubit/auth_cubit.dart';
 import 'package:aklk_3ndna/features/auth/cubit/auth_state.dart';
+import 'package:aklk_3ndna/features/auth/presentation/views/sign_in_view.dart';
 import 'package:aklk_3ndna/features/auth/presentation/widget/custom_circular_indicator.dart';
 import 'package:aklk_3ndna/features/auth/presentation/widget/custon_text_form_filed.dart';
 import 'package:aklk_3ndna/features/auth/presentation/widget/terms_and_condition_widget.dart';
-import 'package:aklk_3ndna/features/home/presentation/view/home.dart';
 import 'package:aklk_3ndna/generated/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -30,9 +30,8 @@ class _CustomSignUpFormState extends State<CustomSignUpForm> {
     return BlocConsumer<AuthCubit, AuthState>(
       listener: (context, state) {
         if (state is SignupSuccessState) {
-          showToast("Successfully Create Account");
-
-          Navigator.pushReplacementNamed(context, HomeView.id);
+          showToast("Successfully,Check your email to verfiy your account");
+          Navigator.pushReplacementNamed(context, SignInView.id);
         } else if (state is SignupFailureState) {
           showToast(state.errMessage);
         }

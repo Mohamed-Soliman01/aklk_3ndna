@@ -11,6 +11,11 @@ class Assets {
   static const String imagesGetStartedIllustration =
       "assets/images/get_started/Illustration.png";
 
+  /// Assets for imagesGetStartedUser
+  /// assets/images/get_started/user.jpg
+  static const String imagesGetStartedUser =
+      "assets/images/get_started/user.jpg";
+
   /// Assets for imagesLogonameAklk3ndnaAr1
   /// assets/images/logoname/aklk_3ndna_ar1.png
   static const String imagesLogonameAklk3ndnaAr1 =
@@ -55,4 +60,9 @@ class Assets {
   /// assets/images/splash/aklk_3ndna_en.png
   static const String imagesSplashAklk3ndnaEn =
       "assets/images/splash/aklk_3ndna_en.png";
+
+  /// Assets for imagesSplashForgotPassword
+  /// assets/images/splash/forgot-password.avif
+  static const String imagesSplashForgotPassword =
+      "assets/images/splash/forgot-password.avif";
 }
