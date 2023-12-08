@@ -1,4 +1,6 @@
-import 'package:aklk_3ndna/features/auth/cubit/auth_state.dart';
+import 'dart:developer';
+
+import 'package:aklk_3ndna/features/auth/cubit_auth/auth_state.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -51,16 +53,20 @@ class AuthCubit extends Cubit<AuthState> {
   }
 
 //! SignUp Handle Exception
-  void _signUpHandleException(FirebaseAuthException erorr) {
-    if (erorr.code == 'weak-password') {
+  void _signUpHandleException(FirebaseAuthException error) {
+    if (error.code == 'weak-password') {
       emit(SignupFailureState(errMessage: 'The password provided is too weak'));
-    } else if (erorr.code == 'email-already-in-use') {
+    } else if (error.code == 'email-already-in-use') {
       emit(SignupFailureState(
           errMessage: 'The account already exists for that email.'));
-    } else if (erorr.code == 'invalid-email') {
+    } else if (error.code == 'invalid-email') {
       emit(SignupFailureState(errMessage: 'The email is invalid.'));
+    } else if (error.code == 'network-request-failed') {
+      emit(SignupFailureState(
+          errMessage: 'Please check your network connection.'));
     } else {
-      emit(SignupFailureState(errMessage: erorr.code));
+      log(error.code);
+      emit(SignupFailureState(errMessage: error.code));
     }
   }
 
@@ -86,10 +92,10 @@ class AuthCubit extends Cubit<AuthState> {
   }
 
 //! SignIn Handle Exception
-  void _signInHandleException(FirebaseAuthException erorr) {
-    if (erorr.code == 'user-not-found') {
+  void _signInHandleException(FirebaseAuthException error) {
+    if (error.code == 'user-not-found') {
       emit(SigninFailureState(errMessage: 'No user found for that email.'));
-    } else if (erorr.code == 'wrong-password') {
+    } else if (error.code == 'wrong-password') {
       emit(SigninFailureState(
           errMessage: 'Wrong password provided for that user.'));
     } else {

@@ -229,6 +229,46 @@ class S {
       args: [],
     );
   }
+
+  /// `OOPS!`
+  String get oops {
+    return Intl.message(
+      'OOPS!',
+      name: 'oops',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `NO INTERNET`
+  String get noInternet {
+    return Intl.message(
+      'NO INTERNET',
+      name: 'noInternet',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Please check your network connection.`
+  String get PleaseCheckYourNetWorkConnection {
+    return Intl.message(
+      'Please check your network connection.',
+      name: 'PleaseCheckYourNetWorkConnection',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `TRY AGAIN`
+  String get TyrAgain {
+    return Intl.message(
+      'TRY AGAIN',
+      name: 'TyrAgain',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

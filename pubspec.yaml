@@ -49,6 +49,8 @@ dependencies:
   cloud_firestore: ^4.10.0
   firebase_storage: ^11.4.1
   fluttertoast: ^8.2.4
+  connectivity_plus: ^5.0.2
+  persistent_bottom_nav_bar: ^5.0.2
 
 dev_dependencies:
   flutter_test:
@@ -80,6 +82,7 @@ flutter:
   uses-material-design: true
   # To add assets to your application, add an assets section, like this:
   assets:
+    - assets/images/
     - assets/images/splash/
     - assets/images/get_started/
     - assets/images/on_borading/

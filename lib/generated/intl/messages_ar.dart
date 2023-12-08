@@ -26,8 +26,12 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("هل لديك حساب ؟ "),
         "DoYouHaveAnAccount":
             MessageLookupByLibrary.simpleMessage("هل لديك حساب ؟ "),
+        "PleaseCheckYourNetWorkConnection":
+            MessageLookupByLibrary.simpleMessage(
+                "الرجاء التحقق من اتصال الشبكة الخاصة بك"),
         "TermsAndConditions": MessageLookupByLibrary.simpleMessage(
             "أوافق على الشروط والأحكام الخاصة بك"),
+        "TyrAgain": MessageLookupByLibrary.simpleMessage("حاول ثانياً"),
         "email": MessageLookupByLibrary.simpleMessage("بريد إلكتروني"),
         "forgotPassword":
             MessageLookupByLibrary.simpleMessage("هل نسيت كلمة السر ؟"),
@@ -35,6 +39,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "isEmpty": MessageLookupByLibrary.simpleMessage("فارغ!"),
         "name": MessageLookupByLibrary.simpleMessage("الاسم"),
         "next": MessageLookupByLibrary.simpleMessage("التالي"),
+        "noInternet": MessageLookupByLibrary.simpleMessage("لا يوجد إنترنت"),
+        "oops": MessageLookupByLibrary.simpleMessage("أُووبس!"),
         "password": MessageLookupByLibrary.simpleMessage("كلمة المرور"),
         "phoneNumber": MessageLookupByLibrary.simpleMessage("رقم التليفون"),
         "signIn": MessageLookupByLibrary.simpleMessage("تسجيل الدخول"),

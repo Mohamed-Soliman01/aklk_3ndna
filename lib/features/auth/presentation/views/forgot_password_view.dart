@@ -1,6 +1,7 @@
-import 'package:aklk_3ndna/features/auth/cubit/auth_cubit.dart';
+import 'package:aklk_3ndna/core/utils/app_assets.dart';
+import 'package:aklk_3ndna/features/auth/cubit_auth/auth_cubit.dart';
 import 'package:aklk_3ndna/features/auth/presentation/widget/custom_forgot_password_form.dart';
-import 'package:aklk_3ndna/features/auth/presentation/widget/forgot_password_image.dart';
+import 'package:aklk_3ndna/core/widgets/custom_image.dart';
 import 'package:aklk_3ndna/features/auth/presentation/widget/forgot_password_sub_title.dart';
 import 'package:aklk_3ndna/features/auth/presentation/widget/welcome_text_widget.dart';
 import 'package:aklk_3ndna/generated/l10n.dart';
@@ -25,7 +26,9 @@ class ForgotPasswordView extends StatelessWidget {
               children: [
                 SizedBox(height: height * 0.1),
                 WelcomeTextWidget(text: S.of(context).forgotPassword),
-                ForgotPasswrodImage(),
+                CustomImage(
+                  url: Assets.imagesForgotPassword,
+                ),
                 SizedBox(height: height * 0.03),
                 ForgotPasswordSubTitle(),
                 SizedBox(height: height * 0.03),

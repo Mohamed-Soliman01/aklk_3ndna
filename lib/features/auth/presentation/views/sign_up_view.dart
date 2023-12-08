@@ -1,4 +1,4 @@
-import 'package:aklk_3ndna/features/auth/cubit/auth_cubit.dart';
+import 'package:aklk_3ndna/features/auth/cubit_auth/auth_cubit.dart';
 import 'package:aklk_3ndna/features/auth/presentation/views/sign_in_view.dart';
 import 'package:aklk_3ndna/features/auth/presentation/widget/custom_sign_up_form.dart';
 import 'package:aklk_3ndna/features/auth/presentation/widget/have_an_account_widget.dart';

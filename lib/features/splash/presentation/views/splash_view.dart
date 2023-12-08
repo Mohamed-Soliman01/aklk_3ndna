@@ -3,7 +3,7 @@ import 'package:aklk_3ndna/core/functions/is_arabic.dart';
 import 'package:aklk_3ndna/core/services/service_locator.dart';
 import 'package:aklk_3ndna/core/utils/app_assets.dart';
 import 'package:aklk_3ndna/features/auth/presentation/views/sign_in_view.dart';
-import 'package:aklk_3ndna/features/home/presentation/view/home.dart';
+import 'package:aklk_3ndna/features/home/presentation/view/home_nav_bar_widget.dart';
 import 'package:aklk_3ndna/features/on_boarding/presentation/views/get_started_view.dart';
 import 'package:animated_splash_screen/animated_splash_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -22,7 +22,7 @@ class SplashView extends StatelessWidget {
       if (FirebaseAuth.instance.currentUser == null) {
         return const SignInView();
       } else if (FirebaseAuth.instance.currentUser!.emailVerified == true) {
-        return const HomeView();
+        return const HomeNavBarWidget();
       } else {
         return const SignInView();
       }

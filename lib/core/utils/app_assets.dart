@@ -1,6 +1,11 @@
 class Assets {
   Assets._();
 
+  /// Assets for imagesForgotPassword
+  /// assets/images/forgot-password.avif
+  static const String imagesForgotPassword =
+      "assets/images/forgot-password.avif";
+
   /// Assets for imagesGetStartedCircle Background
   /// assets/images/get_started/Circle Background.png
   static const String imagesGetStartedCircleBackground =
@@ -36,6 +41,10 @@ class Assets {
   static const String imagesLogonameAklk3ndnaEn2 =
       "assets/images/logoname/aklk_3ndna_en2.png";
 
+  /// Assets for imagesNoInternet
+  /// assets/images/no_internet.png
+  static const String imagesNoInternet = "assets/images/no_internet.png";
+
   /// Assets for imagesOnBoradingAllyourfavorites
   /// assets/images/on_borading/allyourfavorites.png
   static const String imagesOnBoradingAllyourfavorites =
@@ -60,9 +69,4 @@ class Assets {
   /// assets/images/splash/aklk_3ndna_en.png
   static const String imagesSplashAklk3ndnaEn =
       "assets/images/splash/aklk_3ndna_en.png";
-
-  /// Assets for imagesSplashForgotPassword
-  /// assets/images/splash/forgot-password.avif
-  static const String imagesSplashForgotPassword =
-      "assets/images/splash/forgot-password.avif";
 }

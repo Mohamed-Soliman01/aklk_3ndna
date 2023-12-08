@@ -1,12 +1,12 @@
 import 'package:aklk_3ndna/core/functions/show_toast.dart';
 import 'package:aklk_3ndna/core/utils/app_controller.dart';
 import 'package:aklk_3ndna/core/widgets/custom_button.dart';
-import 'package:aklk_3ndna/features/auth/cubit/auth_cubit.dart';
-import 'package:aklk_3ndna/features/auth/cubit/auth_state.dart';
+import 'package:aklk_3ndna/features/auth/cubit_auth/auth_cubit.dart';
+import 'package:aklk_3ndna/features/auth/cubit_auth/auth_state.dart';
 import 'package:aklk_3ndna/features/auth/presentation/widget/custom_circular_indicator.dart';
 import 'package:aklk_3ndna/features/auth/presentation/widget/custon_text_form_filed.dart';
 import 'package:aklk_3ndna/features/auth/presentation/widget/forgot_password_text_widget.dart';
-import 'package:aklk_3ndna/features/home/presentation/view/home.dart';
+import 'package:aklk_3ndna/features/home/presentation/view/home_nav_bar_widget.dart';
 import 'package:aklk_3ndna/generated/l10n.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -29,7 +29,7 @@ class _CustomSignInFormState extends State<CustomSignInForm> {
       listener: (context, state) {
         if (state is SigninSuccessState) {
           FirebaseAuth.instance.currentUser!.emailVerified
-              ? Navigator.pushReplacementNamed(context, HomeView.id)
+              ? Navigator.pushReplacementNamed(context, HomeNavBarWidget.id)
               : showToast("Please Verify Your Account");
         } else if (state is SigninFailureState) {
           showToast(state.errMessage);

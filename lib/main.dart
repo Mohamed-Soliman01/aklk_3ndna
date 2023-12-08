@@ -1,4 +1,5 @@
 import 'package:aklk_3ndna/core/cubit/current_locale/current_locale_cubit.dart';
+import 'package:aklk_3ndna/core/cubit/internet_connection/internet_connection_cubit.dart';
 import 'package:aklk_3ndna/core/database/cache/cache_helper.dart';
 import 'package:aklk_3ndna/core/functions/check_state_chenges.dart';
 import 'package:aklk_3ndna/core/services/service_locator.dart';
@@ -21,11 +22,27 @@ void main() async {
   );
   checkStateChanges();
   runApp(
-    BlocProvider(
-      create: (context) => CurrentLocaleCubit(),
-      child: const Aklk3ndna(),
-    ),
+    CustomMultiBlocProvider(),
   );
+}
+
+class CustomMultiBlocProvider extends StatelessWidget {
+  const CustomMultiBlocProvider({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(
+          create: (context) => InternetConnectionCubit()..checkConnectivity(),
+        ),
+        BlocProvider(
+          create: (context) => CurrentLocaleCubit(),
+        ),
+      ],
+      child: const Aklk3ndna(),
+    );
+  }
 }
 
 class Aklk3ndna extends StatelessWidget {

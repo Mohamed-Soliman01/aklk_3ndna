@@ -16,5 +16,9 @@
     "TermsAndConditions":"I agree to your terms and conditions",
     "isEmpty":"is empty!",
     "forgotPassword":"Forgot Password ?",
-    "supTitleForgetPassword":"Enter your registered email below to receive password reset instruction"
+    "supTitleForgetPassword":"Enter your registered email below to receive password reset instruction",
+    "oops":"OOPS!",
+    "noInternet":"NO INTERNET",
+    "PleaseCheckYourNetWorkConnection":"Please check your network connection.",
+    "TyrAgain":"TRY AGAIN"
 }

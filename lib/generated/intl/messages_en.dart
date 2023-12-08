@@ -26,8 +26,12 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Already have an account ? "),
         "DoYouHaveAnAccount":
             MessageLookupByLibrary.simpleMessage("Do you have an account ? "),
+        "PleaseCheckYourNetWorkConnection":
+            MessageLookupByLibrary.simpleMessage(
+                "Please check your network connection."),
         "TermsAndConditions": MessageLookupByLibrary.simpleMessage(
             "I agree to your terms and conditions"),
+        "TyrAgain": MessageLookupByLibrary.simpleMessage("TRY AGAIN"),
         "email": MessageLookupByLibrary.simpleMessage("Email"),
         "forgotPassword":
             MessageLookupByLibrary.simpleMessage("Forgot Password ?"),
@@ -35,6 +39,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "isEmpty": MessageLookupByLibrary.simpleMessage("is empty!"),
         "name": MessageLookupByLibrary.simpleMessage("Name"),
         "next": MessageLookupByLibrary.simpleMessage("NEXT"),
+        "noInternet": MessageLookupByLibrary.simpleMessage("NO INTERNET"),
+        "oops": MessageLookupByLibrary.simpleMessage("OOPS!"),
         "password": MessageLookupByLibrary.simpleMessage("Password"),
         "phoneNumber": MessageLookupByLibrary.simpleMessage("Phone Number"),
         "signIn": MessageLookupByLibrary.simpleMessage("Sign In"),

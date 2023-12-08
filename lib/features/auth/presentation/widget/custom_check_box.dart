@@ -1,5 +1,5 @@
 import 'package:aklk_3ndna/core/utils/app_colors.dart';
-import 'package:aklk_3ndna/features/auth/cubit/auth_cubit.dart';
+import 'package:aklk_3ndna/features/auth/cubit_auth/auth_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
