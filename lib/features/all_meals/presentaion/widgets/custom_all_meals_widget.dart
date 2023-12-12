@@ -5,10 +5,8 @@ class CustomAllMealsWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Center(
-        child: Text("All Meals View"),
-      ),
+    return Center(
+      child: Text("All Meals View"),
     );
   }
 }

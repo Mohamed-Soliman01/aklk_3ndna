@@ -1,5 +1,8 @@
 import 'dart:developer';
 
+import 'package:aklk_3ndna/core/database/cache/cache_helper.dart';
+import 'package:aklk_3ndna/core/models/user_model.dart';
+import 'package:aklk_3ndna/core/services/service_locator.dart';
 import 'package:aklk_3ndna/features/auth/cubit_auth/auth_state.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -8,21 +11,28 @@ import 'package:firebase_auth/firebase_auth.dart';
 class AuthCubit extends Cubit<AuthState> {
   AuthCubit() : super(AuthInitial());
   static AuthCubit get(context) => BlocProvider.of(context);
+  static const String primaryKey = 'primaryKey';
 
 //! SignUp With Email And Password
-  Future<void> signUpWithEmailAndPassword({
-    required String email,
-    required String password,
-    required String name,
-    required String phone,
-  }) async {
+  Future<void> signUpWithEmailAndPassword(
+      {required String email,
+      required String password,
+      required String name,
+      required String phone}) async {
     try {
       emit(SignupLoadingState());
-      await FirebaseAuth.instance.createUserWithEmailAndPassword(
+      await FirebaseAuth.instance
+          .createUserWithEmailAndPassword(
         email: email,
         password: password,
-      );
-      await addUserProfile(name: name, email: email, phone: phone);
+      )
+          .then((value) async {
+        await addUserProfile(
+          name: name,
+          email: email,
+          phone: phone,
+        );
+      });
       await verifyEmail();
       emit(SignupSuccessState());
     } on FirebaseAuthException catch (e) {
@@ -38,16 +48,23 @@ class AuthCubit extends Cubit<AuthState> {
     required String name,
     required String phone,
   }) async {
-    CollectionReference users = FirebaseFirestore.instance.collection("users");
-    await users.add({
-      "email": email,
-      "name": name,
-      "phone": phone,
-      "image": 'assets/images/get_started/user.jpg'
+    UserModel model = UserModel(
+        name: name,
+        email: email,
+        phone: phone,
+        image:
+            'https://firebasestorage.googleapis.com/v0/b/aklk-3ndna-e9035.appspot.com/o/user.jpg?alt=media&token=81eaf114-1074-46fc-a8f7-db64a67252ca'); //!
+    FirebaseFirestore.instance
+        .collection('users')
+        .doc(email)
+        .set(model.toMap())
+        .then((value) {
+      getIt<CacheHelper>().put(key: primaryKey, value: email);
     });
   }
 
 //! verify Email
+
   Future<void> verifyEmail() async {
     await FirebaseAuth.instance.currentUser!.sendEmailVerification();
   }
@@ -81,6 +98,7 @@ class AuthCubit extends Cubit<AuthState> {
         email: email,
         password: password,
       );
+      getIt<CacheHelper>().put(key: primaryKey, value: email);
       emit(SigninSuccessState());
     } on FirebaseAuthException catch (erorr) {
       _signInHandleException(erorr);

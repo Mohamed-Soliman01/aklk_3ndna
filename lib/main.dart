@@ -1,15 +1,16 @@
+import 'package:aklk_3ndna/core/cubit/app_cubit/app_cubit.dart';
 import 'package:aklk_3ndna/core/cubit/current_locale/current_locale_cubit.dart';
 import 'package:aklk_3ndna/core/cubit/internet_connection/internet_connection_cubit.dart';
 import 'package:aklk_3ndna/core/database/cache/cache_helper.dart';
 import 'package:aklk_3ndna/core/functions/check_state_chenges.dart';
 import 'package:aklk_3ndna/core/services/service_locator.dart';
+import 'package:aklk_3ndna/features/home/presentation/logic/bottom_nav_bar_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
 import 'package:aklk_3ndna/core/cubit/current_locale/current_locale_state.dart';
 import 'package:aklk_3ndna/core/routes/routes.dart';
-import 'package:aklk_3ndna/features/splash/presentation/views/splash_view.dart';
 import 'package:aklk_3ndna/generated/l10n.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
@@ -39,14 +40,33 @@ class CustomMultiBlocProvider extends StatelessWidget {
         BlocProvider(
           create: (context) => CurrentLocaleCubit(),
         ),
+        BlocProvider(
+          create: (context) => BottomNavBarCubit(),
+        ),
+        BlocProvider(
+          create: (context) => AppCubit()..getUserData(),
+        ),
       ],
       child: const Aklk3ndna(),
     );
   }
 }
 
-class Aklk3ndna extends StatelessWidget {
+class Aklk3ndna extends StatefulWidget {
   const Aklk3ndna({super.key});
+
+  @override
+  State<Aklk3ndna> createState() => _Aklk3ndnaState();
+}
+
+class _Aklk3ndnaState extends State<Aklk3ndna> {
+  @override
+  void initState() {
+    CurrentLocaleCubit.get(context).updateLanguage(
+      value: getIt<CacheHelper>().getData(key: "value") ?? true,
+    );
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -65,7 +85,7 @@ class Aklk3ndna extends StatelessWidget {
           ],
           supportedLocales: S.delegate.supportedLocales,
           routes: routes,
-          initialRoute: SplashView.id,
+          initialRoute: '/',
         );
         return materialApp;
       },
